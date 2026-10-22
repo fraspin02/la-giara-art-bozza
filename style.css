@@ -135,6 +135,7 @@ strong { font-weight: 700; }
 .hero__facts strong { font: 700 1.35rem/1 var(--f-head); color: var(--on-night); margin-right: .2rem; }
 .hero__pic { position: relative; justify-self: center; width: min(78vw, 460px); }
 .hero__pic img { width: 100%; aspect-ratio: 1; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .55)); }
+.hero__tag b { font-weight: 700; }
 .hero__tag {
   position: absolute; right: 2%; bottom: 8%;
   background: var(--paper); color: var(--ink); border-radius: 999px;
@@ -179,6 +180,7 @@ strong { font-weight: 700; }
 .menu-hero .eyebrow { color: var(--crust); }
 .menu-hero h1 { font-size: clamp(3rem, 12vw, 4.8rem); text-transform: uppercase; }
 .menu-hero__lead { margin-top: .6rem; color: var(--muted-on-night); max-width: 38rem; font-size: 1.05rem; }
+.menu-hero .menu-hero__date { margin-top: .5rem; font-size: .9rem; color: var(--crust); }
 .menu-hero .menu-hero__call { display: none; margin-top: 1.4rem; max-width: 40rem; }
 .chips--bar { position: sticky; top: 64px; z-index: 10; background: var(--cream); border-bottom: 1px solid var(--line); }
 .chips__in { position: relative; display: flex; gap: .5rem; overflow-x: auto; padding-block: .7rem; scrollbar-width: none; overscroll-behavior-x: contain; }

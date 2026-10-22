@@ -1,0 +1,574 @@
+{
+  "aggiornato": "2026-10-22",
+  "categorie": [
+    {
+      "id": "rosse",
+      "titolo": "Pizze rosse",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Margherita",
+          "ingredienti": "Pomodoro, fiordilatte, basilico, olio evo",
+          "prezzo": 5.0,
+          "visibile": true
+        },
+        {
+          "nome": "Marinara",
+          "ingredienti": "",
+          "prezzo": 4.5,
+          "visibile": true
+        },
+        {
+          "nome": "Napoletana",
+          "ingredienti": "Pomodoro, fiordilatte, alici, olive, olio evo",
+          "prezzo": 6.0,
+          "visibile": true
+        },
+        {
+          "nome": "Boscaiola*",
+          "ingredienti": "Pomodoro, fiordilatte, funghi champignon freschi, funghi porcini, salame Napoli, olive nere",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Bufalina",
+          "ingredienti": "Pomodoro San Marzano, mozzarella di bufala, basilico, olio evo",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Cosacca",
+          "ingredienti": "Ricetta antica napoletana",
+          "prezzo": 5.5,
+          "visibile": true
+        },
+        {
+          "nome": "Capricciosa",
+          "ingredienti": "",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Deliziosa",
+          "ingredienti": "",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Diavola",
+          "ingredienti": "",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Parmigiana",
+          "ingredienti": "",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Porcini",
+          "ingredienti": "",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Salsiccia",
+          "ingredienti": "",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Salsiccia e patatine",
+          "ingredienti": "",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Tonno e cipolla",
+          "ingredienti": "",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Siciliana",
+          "ingredienti": "",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Diavola con friarielli",
+          "ingredienti": "",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Cotto e funghi",
+          "ingredienti": "",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "4 Stagioni",
+          "ingredienti": "Pomodoro, fiordilatte, salame, prosciutto cotto, carciofi, olive, funghi, olio evo",
+          "prezzo": 7.5,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "bianche",
+      "titolo": "Pizze bianche",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Americana",
+          "ingredienti": "",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Doc con salsiccia",
+          "ingredienti": "",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Estiva",
+          "ingredienti": "Fiordilatte, prosciutto crudo nostrano, rucola, pomodorini, grana padano DOP, olio evo",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Friarielli e salsiccia",
+          "ingredienti": "Fiordilatte, salsiccia, friarielli napoletani, olio evo",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Maestro",
+          "ingredienti": "Fiordilatte, crocchè di patate, funghi porcini, provola affumicata di Agerola, olio evo",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "4 Formaggi",
+          "ingredienti": "Fiordilatte, gorgonzola, emmental, grana DOP, olio evo",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Rucola e Grana",
+          "ingredienti": "Fiordilatte, rucola, grana DOP, olio evo",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Vegetariana",
+          "ingredienti": "Fiordilatte, melanzane, zucchine, peperoni, olio evo",
+          "prezzo": 6.5,
+          "visibile": true
+        },
+        {
+          "nome": "Mastunicola",
+          "ingredienti": "Formaggio, guanciale, basilico, pepe, olio evo",
+          "prezzo": 6.0,
+          "visibile": true
+        },
+        {
+          "nome": "Pancetta Provola Porcini",
+          "ingredienti": "Fiordilatte, funghi porcini, provola, pancetta",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Pizza Crocchè",
+          "ingredienti": "Fiordilatte, prosciutto cotto, crocchette di patate",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Patanè",
+          "ingredienti": "Fiordilatte, provola affumicata, patate al forno, salsiccia, olio evo",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Salsiccia Patatine",
+          "ingredienti": "Fiordilatte, salsiccia, patatine",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Focaccia",
+          "ingredienti": "",
+          "prezzo": 4.0,
+          "visibile": true
+        },
+        {
+          "nome": "Mimosa",
+          "ingredienti": "Fiordilatte, panna, prosciutto cotto, mais, olio evo",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Tonno e Cipolla",
+          "ingredienti": "Fiordilatte, tonno, cipolla, olio evo",
+          "prezzo": 7.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "gourmet",
+      "titolo": "Pizze gourmet",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "La Giara Art",
+          "ingredienti": "Fiordilatte, guanciale, pecorino romano DOP, melanzane in agrodolce, basilico, pepe, olio evo",
+          "prezzo": 8.0,
+          "visibile": true
+        },
+        {
+          "nome": "Emiliana",
+          "ingredienti": "Fiordilatte, mortadella IGP, crema di pistacchio, granella di pistacchio, olio evo",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Dolomiti",
+          "ingredienti": "Fiordilatte, pesto di rucola, spek, noci, olio evo",
+          "prezzo": 8.0,
+          "visibile": true
+        },
+        {
+          "nome": "Verace",
+          "ingredienti": "Fiordilatte, friarielli napoletani, salsiccia, caciocavallo, olio evo",
+          "prezzo": 8.0,
+          "visibile": true
+        },
+        {
+          "nome": "Podolica",
+          "ingredienti": "Pomodoro, fiordilatte, caciocavallo stagionato in grotta, salsiccia, olio evo",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Scarpariello",
+          "ingredienti": "Pomodoro, pomodorini saltati in padella, formaggio, basilico, olio evo",
+          "prezzo": 6.0,
+          "visibile": true
+        },
+        {
+          "nome": "Pizza della settimana",
+          "ingredienti": "",
+          "prezzo": 8.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "metro",
+      "titolo": "Maxi e metro",
+      "nota": "Maxi 50×50 cm · Metro 35×75 cm",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Maxi Margherita",
+          "ingredienti": "Pomodoro, fiordilatte, basilico, olio evo",
+          "prezzo": 12.0,
+          "visibile": true
+        },
+        {
+          "nome": "Maxi Mista",
+          "ingredienti": "",
+          "prezzo": 18.0,
+          "visibile": true
+        },
+        {
+          "nome": "Maxi 1/2 Margherita 1/2 Mista",
+          "ingredienti": "Misura 50×50 cm",
+          "prezzo": 15.0,
+          "visibile": true
+        },
+        {
+          "nome": "Metro Margherita",
+          "ingredienti": "Misura 35×75 cm",
+          "prezzo": 14.0,
+          "visibile": true
+        },
+        {
+          "nome": "Metro mista",
+          "ingredienti": "Misura 35×75 cm",
+          "prezzo": 19.0,
+          "visibile": true
+        },
+        {
+          "nome": "Metro 1/2 Margherita 1/2 mista",
+          "ingredienti": "Misura 35×75 cm",
+          "prezzo": 17.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "calzoni",
+      "titolo": "Calzoni ripieni",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Ripieno al forno tradizionale",
+          "ingredienti": "",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Ripieno alla scarola",
+          "ingredienti": "",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Ripieno napoletano",
+          "ingredienti": "",
+          "prezzo": 7.5,
+          "visibile": true
+        },
+        {
+          "nome": "Ripieno margherita",
+          "ingredienti": "",
+          "prezzo": 6.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "panuozzi",
+      "titolo": "Panuozzi",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Americano",
+          "ingredienti": "",
+          "prezzo": 12.0,
+          "visibile": true
+        },
+        {
+          "nome": "Friarielli e salsiccia",
+          "ingredienti": "",
+          "prezzo": 12.0,
+          "visibile": true
+        },
+        {
+          "nome": "Estivo",
+          "ingredienti": "",
+          "prezzo": 12.0,
+          "visibile": true
+        },
+        {
+          "nome": "Vegetariano",
+          "ingredienti": "",
+          "prezzo": 12.0,
+          "visibile": true
+        },
+        {
+          "nome": "Pancetta",
+          "ingredienti": "",
+          "prezzo": 12.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "panini",
+      "titolo": "Panini, saltimbocca e tronchetti",
+      "breve": "Panini",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Wurstel e patatine",
+          "ingredienti": "",
+          "prezzo": 4.5,
+          "visibile": true
+        },
+        {
+          "nome": "Cotoletta e patatine",
+          "ingredienti": "",
+          "prezzo": 4.5,
+          "visibile": true
+        },
+        {
+          "nome": "Kebab",
+          "ingredienti": "",
+          "prezzo": 7.0,
+          "visibile": true
+        },
+        {
+          "nome": "Zola piccante",
+          "ingredienti": "Fiordilatte, salame piccante, gorgonzola, olio evo",
+          "prezzo": 6.0,
+          "visibile": true
+        },
+        {
+          "nome": "Montagna",
+          "ingredienti": "Fiordilatte, funghi porcini, spek, rucola, olio evo",
+          "prezzo": 6.0,
+          "visibile": true
+        },
+        {
+          "nome": "Vegetariano",
+          "ingredienti": "",
+          "prezzo": 6.0,
+          "visibile": true
+        },
+        {
+          "nome": "Tronchetto alla nutella",
+          "ingredienti": "",
+          "prezzo": 6.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "friggitoria",
+      "titolo": "Friggitoria",
+      "vetrina": true,
+      "voci": [
+        {
+          "nome": "Patatine fritte piccola",
+          "ingredienti": "",
+          "prezzo": 2.5,
+          "visibile": true
+        },
+        {
+          "nome": "Wurstel e patatine",
+          "ingredienti": "",
+          "prezzo": 4.5,
+          "visibile": true
+        },
+        {
+          "nome": "Crocchè di patate (al pezzo)",
+          "ingredienti": "",
+          "prezzo": 0.9,
+          "visibile": true
+        },
+        {
+          "nome": "Arancini di riso (al pezzo)",
+          "ingredienti": "",
+          "prezzo": 0.9,
+          "visibile": true
+        },
+        {
+          "nome": "Frittatina di spaghetti artigianale",
+          "ingredienti": "",
+          "prezzo": 2.5,
+          "visibile": true
+        },
+        {
+          "nome": "Mozzarella in carrozza artigianale",
+          "ingredienti": "",
+          "prezzo": 1.5,
+          "visibile": true
+        },
+        {
+          "nome": "Chele di granchio (al pezzo)",
+          "ingredienti": "",
+          "prezzo": 0.6,
+          "visibile": true
+        },
+        {
+          "nome": "Patatine fritte grande",
+          "ingredienti": "",
+          "prezzo": 4.5,
+          "visibile": true
+        },
+        {
+          "nome": "Zeppoline",
+          "ingredienti": "",
+          "prezzo": 4.0,
+          "visibile": true
+        }
+      ]
+    },
+    {
+      "id": "bevande",
+      "titolo": "Bibite e birre",
+      "vetrina": false,
+      "voci": [
+        {
+          "nome": "Acqua minerale naturale cl.50",
+          "ingredienti": "",
+          "prezzo": 0.8,
+          "visibile": true
+        },
+        {
+          "nome": "Acqua minerale frizzante",
+          "ingredienti": "",
+          "prezzo": 0.8,
+          "visibile": true
+        },
+        {
+          "nome": "Coca cola, Coca cola zero, Pepsi, Fanta, Sprite, Chinotto",
+          "ingredienti": "",
+          "prezzo": 2.0,
+          "visibile": true
+        },
+        {
+          "nome": "Thè limone, Thè pesca, Lemon soda",
+          "ingredienti": "",
+          "prezzo": 2.0,
+          "visibile": true
+        },
+        {
+          "nome": "Coca cola, Fanta cl. 1,5",
+          "ingredienti": "",
+          "prezzo": 3.0,
+          "visibile": true
+        },
+        {
+          "nome": "Nastro azzurro cl. 33",
+          "ingredienti": "",
+          "prezzo": 2.0,
+          "visibile": true
+        },
+        {
+          "nome": "Peroni cl. 33",
+          "ingredienti": "",
+          "prezzo": 1.5,
+          "visibile": true
+        },
+        {
+          "nome": "Peroni Lemon cl. 33",
+          "ingredienti": "",
+          "prezzo": 2.0,
+          "visibile": true
+        },
+        {
+          "nome": "Heineken cl. 33",
+          "ingredienti": "",
+          "prezzo": 2.0,
+          "visibile": true
+        },
+        {
+          "nome": "Beck’s cl. 33",
+          "ingredienti": "",
+          "prezzo": 2.5,
+          "visibile": true
+        },
+        {
+          "nome": "Peroni cl. 66",
+          "ingredienti": "",
+          "prezzo": 3.0,
+          "visibile": true
+        },
+        {
+          "nome": "Nastro Azzurro cl. 66",
+          "ingredienti": "",
+          "prezzo": 3.0,
+          "visibile": true
+        }
+      ]
+    }
+  ]
+}

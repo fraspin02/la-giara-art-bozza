@@ -4,6 +4,11 @@
 !/.nojekyll
 !/index.html
 !/menu.html
+!/modifica-menu.html
+!/.gitattributes
+!/.github/
+!/data/
+!/tools/
 !/style.css
 !/favicon.svg
 !/img/

@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modifica menu · La Giara Art</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#141010">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding-bottom: 7.5rem; }
+    .ed-top { background: var(--night); color: var(--on-night); }
+    .ed-top__in { display: flex; align-items: center; gap: .8rem; min-height: 64px; }
+    .ed-top img { width: 48px; height: 40px; }
+    .ed-top h1 { font-size: 1.6rem; text-transform: uppercase; }
+    .ed-top a.view { margin-left: auto; color: var(--on-night); font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; }
+    .ed-main { padding-block: 1.4rem 2rem; display: grid; gap: 1.2rem; max-width: 48rem; }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; }
+    .card h2 { font-size: 1.5rem; text-transform: uppercase; margin-bottom: .4rem; }
+    .muted { color: var(--muted); font-size: .92rem; }
+    .row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .8rem; }
+    label.f { display: grid; gap: .25rem; font-weight: 600; font-size: .9rem; }
+    input[type=text], input[type=password], input[type=search], textarea {
+      width: 100%; font: 400 1rem/1.4 var(--f-body); color: var(--ink); background: #fff;
+      border: 1.5px solid #CDBFAE; border-radius: 10px; padding: .6rem .7rem; min-height: 44px;
+    }
+    textarea { resize: vertical; min-height: 2.8rem; }
+    input:focus-visible, textarea:focus-visible { outline: 3px solid var(--crust); outline-offset: 1px; border-color: var(--ink); }
+    .invalid { border-color: var(--red) !important; background: #FFF1F1 !important; }
+    .btn--plain { background: var(--cream); color: var(--ink); border-color: var(--line); }
+    .btn--plain:hover { border-color: var(--ink); }
+    .btn--danger { background: transparent; color: var(--red-dark); border-color: transparent; }
+    .btn--danger:hover { background: #FFF1F1; }
+    .iconbtn { width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: 10px; }
+    .status-ok { color: #1E6B34; font-weight: 600; }
+    .status-err { color: var(--red-dark); font-weight: 600; }
+
+    details.cat-ed { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+    details.cat-ed > summary { display: flex; align-items: center; gap: .6rem; min-height: 56px; padding: .6rem 1rem; cursor: pointer; list-style: none; }
+    details.cat-ed > summary::-webkit-details-marker { display: none; }
+    details.cat-ed > summary h2 { font-size: 1.4rem; text-transform: uppercase; }
+    details.cat-ed > summary .menu-cat__count { margin-left: .2rem; }
+    details.cat-ed > summary .i { margin-left: auto; transition: transform .2s; }
+    details.cat-ed[open] > summary .i { transform: rotate(180deg); }
+    .cat-ed__body { padding: 0 1rem 1rem; display: grid; gap: .9rem; }
+    .cat-set > summary { display: flex; align-items: center; min-height: 44px; font-weight: 600; font-size: .92rem; color: var(--muted); cursor: pointer; }
+    .cat-fields { display: grid; gap: .6rem; padding: .8rem; background: var(--cream); border-radius: 10px; }
+    .cat-fields .check { display: flex; align-items: center; gap: .5rem; font-weight: 600; min-height: 44px; }
+    .item { border: 1px solid var(--line); border-radius: 12px; padding: .8rem; display: grid; gap: .55rem; }
+    .item.is-hidden { opacity: .6; background: repeating-linear-gradient(-45deg, #fff, #fff 8px, #FAF6F0 8px, #FAF6F0 16px); }
+    .item__top { display: grid; grid-template-columns: 1fr 6.5rem; gap: .5rem; }
+    .item__bar { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; }
+    .item__bar .check { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; margin-right: auto; font-weight: 600; font-size: .92rem; }
+    input[type=checkbox] { width: 22px; height: 22px; accent-color: var(--red); }
+    .price { position: relative; }
+    .price input { padding-right: 1.8rem; text-align: right; font-variant-numeric: tabular-nums; }
+    .price span { position: absolute; right: .7rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+    .add { justify-self: start; }
+    .hide { display: none !important; }
+
+    .savebar {
+      position: fixed; inset: auto 0 0 0; z-index: 30; background: var(--night); color: var(--on-night);
+      padding: .7rem 0 calc(.7rem + env(safe-area-inset-bottom)); box-shadow: 0 -6px 20px rgba(0,0,0,.25);
+    }
+    .savebar__in { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; max-width: 48rem; }
+    .savebar__msg { flex: 1 1 12rem; font-size: .92rem; color: var(--muted-on-night); }
+    .savebar__msg strong { color: var(--on-night); }
+    .savebar .btn--plain { background: transparent; color: var(--on-night); border-color: rgba(251,246,238,.4); }
+    .savebar .btn[disabled] { opacity: .45; cursor: not-allowed; }
+    .help ol { margin: .5rem 0 0 1.2rem; list-style: decimal; display: grid; gap: .3rem; }
+    .help a { color: var(--red-dark); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  </svg>
+
+  <header class="ed-top">
+    <div class="wrap ed-top__in">
+      <img src="img/logo-giara-light.svg" width="48" height="40" alt="La Giara Art">
+      <h1>Modifica menu</h1>
+      <a class="view" href="menu.html" target="_blank" rel="noopener">Vedi il menu</a>
+    </div>
+  </header>
+
+  <main class="wrap ed-main">
+    <!-- Collegamento a GitHub -->
+    <section class="card" id="conn" aria-labelledby="conn-t">
+      <h2 id="conn-t">Collegamento</h2>
+      <div id="conn-off">
+        <p class="muted">Per salvare serve la chiave di accesso del sito (si inserisce una volta sola su questo telefono o computer). Senza chiave puoi guardare e provare le modifiche, ma non pubblicarle.</p>
+        <div class="row">
+          <label class="f" style="flex:1 1 16rem">Chiave di accesso
+            <input type="password" id="token" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+          </label>
+          <button class="btn btn--red" id="connect" type="button" style="align-self:end">Collega</button>
+        </div>
+        <p class="muted" id="conn-msg" role="status"></p>
+        <details class="help" style="margin-top:.6rem">
+          <summary class="muted" style="cursor:pointer;min-height:44px;display:flex;align-items:center">Come si crea la chiave</summary>
+          <ol class="muted">
+            <li>Su GitHub apri <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Nuova chiave (fine-grained token)</a>.</li>
+            <li>In <em>Repository access</em> scegli <em>Only select repositories</em> e seleziona solo il repository del sito.</li>
+            <li>In <em>Permissions → Contents</em> scegli <em>Read and write</em>. Nient'altro.</li>
+            <li>Crea la chiave, copiala e incollala qui sopra.</li>
+          </ol>
+        </details>
+      </div>
+      <div id="conn-on" class="hide">
+        <p><span class="status-ok">Collegato</span> <span class="muted" id="conn-who"></span></p>
+        <div class="row"><button class="btn btn--plain btn--sm" id="disconnect" type="button">Scollega questo dispositivo</button></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="find-t">
+      <h2 id="find-t">Cerca</h2>
+      <label class="f">Cerca una voce del menu
+        <input type="search" id="find" placeholder="es. Margherita, friarielli…" autocomplete="off">
+      </label>
+      <p class="muted" id="loadmsg" role="status" style="margin-top:.5rem">Caricamento del menu…</p>
+    </section>
+
+    <div id="cats" style="display:grid;gap:.8rem"></div>
+
+    <button class="btn btn--plain add" id="addcat" type="button"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Nuova categoria</button>
+  </main>
+
+  <div class="savebar" role="region" aria-label="Salvataggio">
+    <div class="wrap savebar__in">
+      <p class="savebar__msg" id="savemsg" role="status" aria-live="polite">Nessuna modifica.</p>
+      <button class="btn btn--plain btn--sm" id="download" type="button">Scarica copia</button>
+      <button class="btn btn--plain btn--sm" id="undo" type="button" disabled>Annulla</button>
+      <button class="btn btn--red" id="save" type="button" disabled>Salva e pubblica</button>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    // Repository del sito su GitHub (da cambiare se il sito si sposta)
+    var CFG = { owner: 'fraspin02', repo: 'la-giara-art-bozza', branch: 'main', path: 'data/menu.json' };
+    var KEY = 'giara-menu-token';
+    var API = 'https://api.github.com/repos/' + CFG.owner + '/' + CFG.repo + '/contents/' + CFG.path;
+
+    var state = null, saved = '', sha = null, token = '';
+    var $ = function (id) { return document.getElementById(id); };
+    try { token = localStorage.getItem(KEY) || ''; } catch (e) {}
+
+    // ---------- utilità ----------
+    function el(tag, attrs, kids) {
+      var n = document.createElement(tag);
+      for (var k in attrs || {}) {
+        if (k === 'text') n.textContent = attrs[k];
+        else if (k === 'on') for (var ev in attrs.on) n.addEventListener(ev, attrs.on[ev]);
+        else if (attrs[k] === true) n.setAttribute(k, '');
+        else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k]);
+      }
+      (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+      return n;
+    }
+    function icon(id) { var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('class', 'i'); s.setAttribute('aria-hidden', 'true'); var u = document.createElementNS('http://www.w3.org/2000/svg', 'use'); u.setAttribute('href', '#' + id); s.appendChild(u); return s; }
+    function b64decode(b64) { var bin = atob(b64.replace(/\n/g, '')); var bytes = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); return new TextDecoder().decode(bytes); }
+    function b64encode(str) { var bytes = new TextEncoder().encode(str), bin = ''; for (var i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(bin); }
+    function parsePrice(v) { v = String(v).trim().replace('€', '').replace(/\s/g, '').replace(',', '.'); return /^\d+(\.\d{1,2})?$/.test(v) ? parseFloat(v) : NaN; }
+    function fmtPrice(n) { return isNaN(n) ? '' : n.toFixed(2).replace('.', ','); }
+    function slug(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'categoria'; }
+    function serialize() { return JSON.stringify(state, null, 2) + '\n'; }
+    function gh(method, body) {
+      return fetch(API + (method === 'GET' ? '?ref=' + CFG.branch + '&t=' + Date.now() : ''), {
+        method: method, cache: 'no-store',
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+        body: body ? JSON.stringify(body) : undefined
+      });
+    }
+
+    // ---------- stato modifiche ----------
+    function dirty() { return state && serialize() !== saved; }
+    function refreshBar(msg, cls) {
+      var d = dirty();
+      $('save').disabled = !d || !token;
+      $('undo').disabled = !d;
+      var m = $('savemsg'); m.className = 'savebar__msg' + (cls ? ' ' + cls : '');
+      if (msg) { m.textContent = msg; return; }
+      m.textContent = '';
+      if (d && !token) m.append(el('strong', { text: 'Modifiche non salvate.' }), ' Collega la chiave per pubblicarle.');
+      else if (d) m.append(el('strong', { text: 'Modifiche non salvate.' }));
+      else m.textContent = 'Nessuna modifica.';
+    }
+    function changed() { refreshBar(); }
+    window.addEventListener('beforeunload', function (e) { if (dirty()) { e.preventDefault(); e.returnValue = ''; } });
+
+    // ---------- disegno ----------
+    var openCats = {};
+    function render() {
+      var box = $('cats'); box.textContent = '';
+      state.categorie.forEach(function (cat, ci) { box.appendChild(renderCat(cat, ci)); });
+      applyFilter();
+    }
+    function renderCat(cat, ci) {
+      var count = el('span', { class: 'menu-cat__count', text: String(cat.voci.length) });
+      var title = el('h2', { text: cat.titolo || 'Nuova categoria' });
+      var d = el('details', { class: 'cat-ed', 'data-ci': ci }, [el('summary', {}, [title, count, icon('i-chev')])]);
+      d.open = !!openCats[cat.id];
+      d.addEventListener('toggle', function () { openCats[cat.id] = d.open; });
+      var body = el('div', { class: 'cat-ed__body' });
+
+      var fTitle = el('input', { type: 'text', value: cat.titolo || '', on: { input: function () { cat.titolo = this.value; title.textContent = this.value || 'Nuova categoria'; changed(); } } });
+      var fShort = el('input', { type: 'text', value: cat.breve || '', placeholder: 'uguale al nome', on: { input: function () { if (this.value.trim()) cat.breve = this.value; else delete cat.breve; changed(); } } });
+      var fNote = el('input', { type: 'text', value: cat.nota || '', placeholder: 'es. Maxi 50×50 cm', on: { input: function () { if (this.value.trim()) cat.nota = this.value; else delete cat.nota; changed(); } } });
+      var fHome = el('input', { type: 'checkbox', on: { change: function () { cat.vetrina = this.checked; changed(); } } }); fHome.checked = cat.vetrina !== false;
+      var catTools = el('div', { class: 'item__bar' }, [
+        el('span', { style: 'margin-right:auto' }),
+        el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta su la categoria ' + cat.titolo, disabled: ci === 0, on: { click: function () { moveCat(ci, -1); } } }, [icon('i-up')]),
+        el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta giù la categoria ' + cat.titolo, disabled: ci === state.categorie.length - 1, on: { click: function () { moveCat(ci, 1); } } }, [icon('i-down')]),
+        el('button', { class: 'btn btn--danger btn--sm', type: 'button', on: { click: function () { delCat(ci); } } }, [icon('i-trash'), 'Elimina categoria'])
+      ]);
+      body.appendChild(el('details', { class: 'cat-set' }, [el('summary', { text: 'Impostazioni categoria' }), el('div', { class: 'cat-fields' }, [
+        el('label', { class: 'f' }, ['Nome della categoria', fTitle]),
+        el('label', { class: 'f' }, ['Nome breve nella barra (facoltativo)', fShort]),
+        el('label', { class: 'f' }, ['Nota sotto il titolo (facoltativa)', fNote]),
+        el('label', { class: 'check' }, [fHome, 'Mostra nella home']),
+        catTools
+      ])]));
+
+      cat.voci.forEach(function (v, vi) { body.appendChild(renderItem(cat, ci, v, vi, count)); });
+      body.appendChild(el('button', { class: 'btn btn--plain add', type: 'button', on: { click: function () {
+        cat.voci.push({ nome: '', ingredienti: '', prezzo: 0, visibile: true }); openCats[cat.id] = true; changed(); render();
+        var items = $('cats').querySelectorAll('[data-ci="' + ci + '"] .item'); var last = items[items.length - 1]; if (last) last.querySelector('input').focus();
+      } } }, [icon('i-plus'), 'Aggiungi voce']));
+      d.appendChild(body);
+      return d;
+    }
+    function renderItem(cat, ci, v, vi, count) {
+      var box = el('div', { class: 'item' + (v.visibile === false ? ' is-hidden' : ''), 'data-search': ((v.nome || '') + ' ' + (v.ingredienti || '')).toLowerCase() });
+      var name = el('input', { type: 'text', value: v.nome || '', 'aria-label': 'Nome della voce', placeholder: 'Nome', on: { input: function () {
+        v.nome = this.value; price.setAttribute('aria-label', 'Prezzo di ' + (v.nome || 'nuova voce') + ' in euro'); ingr.setAttribute('aria-label', 'Ingredienti di ' + (v.nome || 'nuova voce')); this.classList.toggle('invalid', !this.value.trim()); box.setAttribute('data-search', (v.nome + ' ' + v.ingredienti).toLowerCase()); changed();
+      } } });
+      var price = el('input', { type: 'text', inputmode: 'decimal', value: fmtPrice(v.prezzo), 'aria-label': 'Prezzo di ' + (v.nome || 'nuova voce') + ' in euro', on: {
+        input: function () { var p = parsePrice(this.value); this.classList.toggle('invalid', isNaN(p)); if (!isNaN(p)) { v.prezzo = p; changed(); } },
+        blur: function () { var p = parsePrice(this.value); if (!isNaN(p)) this.value = fmtPrice(p); }
+      } });
+      var ingr = el('textarea', { rows: '2', 'aria-label': 'Ingredienti di ' + (v.nome || 'nuova voce'), placeholder: 'Ingredienti (facoltativi)', on: { input: function () {
+        v.ingredienti = this.value; box.setAttribute('data-search', (v.nome + ' ' + v.ingredienti).toLowerCase()); changed();
+      } } }); ingr.value = v.ingredienti || '';
+      var vis = el('input', { type: 'checkbox', on: { change: function () { v.visibile = this.checked; box.classList.toggle('is-hidden', !this.checked); changed(); } } }); vis.checked = v.visibile !== false;
+      var lbl = v.nome || 'voce';
+      box.append(
+        el('div', { class: 'item__top' }, [name, el('div', { class: 'price' }, [price, el('span', { 'aria-hidden': 'true', text: '€' })])]),
+        ingr,
+        el('div', { class: 'item__bar' }, [
+          el('label', { class: 'check' }, [vis, 'Visibile']),
+          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta su ' + lbl, disabled: vi === 0, on: { click: function () { move(cat, vi, -1); } } }, [icon('i-up')]),
+          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta giù ' + lbl, disabled: vi === cat.voci.length - 1, on: { click: function () { move(cat, vi, 1); } } }, [icon('i-down')]),
+          el('button', { class: 'btn btn--danger iconbtn', type: 'button', 'aria-label': 'Elimina ' + lbl, on: { click: function () {
+            if (!confirm('Eliminare "' + (v.nome || 'questa voce') + '" dal menu?')) return;
+            cat.voci.splice(vi, 1); changed(); render();
+          } } }, [icon('i-trash')])
+        ])
+      );
+      return box;
+    }
+    function move(cat, i, d) { var j = i + d; if (j < 0 || j >= cat.voci.length) return; var t = cat.voci[i]; cat.voci[i] = cat.voci[j]; cat.voci[j] = t; changed(); render(); }
+    function moveCat(i, d) { var a = state.categorie, j = i + d; if (j < 0 || j >= a.length) return; var t = a[i]; a[i] = a[j]; a[j] = t; changed(); render(); }
+    function delCat(i) {
+      var c = state.categorie[i];
+      if (!confirm('Eliminare la categoria "' + c.titolo + '" con tutte le sue ' + c.voci.length + ' voci?')) return;
+      state.categorie.splice(i, 1); changed(); render();
+    }
+    $('addcat').addEventListener('click', function () {
+      var name = prompt('Nome della nuova categoria (es. Dolci)'); if (!name || !name.trim()) return;
+      var id = slug(name), n = 2, ids = state.categorie.map(function (c) { return c.id; });
+      while (ids.indexOf(id) >= 0) id = slug(name) + '-' + n++;
+      state.categorie.push({ id: id, titolo: name.trim(), vetrina: true, voci: [{ nome: '', ingredienti: '', prezzo: 0, visibile: true }] });
+      openCats[id] = true; changed(); render();
+    });
+
+    // ---------- ricerca ----------
+    function applyFilter() {
+      var q = $('find').value.trim().toLowerCase();
+      $('cats').querySelectorAll('details.cat-ed').forEach(function (d) {
+        var hits = 0;
+        d.querySelectorAll('.item').forEach(function (it) { var ok = !q || it.getAttribute('data-search').indexOf(q) >= 0; it.classList.toggle('hide', !ok); if (ok) hits++; });
+        d.classList.toggle('hide', !!q && hits === 0);
+        if (q && hits) d.open = true;
+      });
+    }
+    $('find').addEventListener('input', applyFilter);
+
+    // ---------- verifica prima del salvataggio ----------
+    function validate() {
+      var bad = [];
+      state.categorie.forEach(function (c) {
+        if (!String(c.titolo || '').trim()) bad.push('una categoria senza nome');
+        c.voci.forEach(function (v) {
+          if (!String(v.nome || '').trim()) bad.push('una voce senza nome in "' + c.titolo + '"');
+          if (typeof v.prezzo !== 'number' || isNaN(v.prezzo) || v.prezzo < 0) bad.push('il prezzo di "' + v.nome + '"');
+        });
+      });
+      if (document.querySelector('#cats .invalid')) bad.push('un prezzo scritto in modo non valido (usa per esempio 6,50)');
+      return bad;
+    }
+
+    // ---------- caricamento e salvataggio ----------
+    function loaded(data, newSha, source) {
+      state = data; sha = newSha; saved = serialize();
+      $('loadmsg').textContent = 'Menu caricato ' + source + '. ' + state.categorie.reduce(function (n, c) { return n + c.voci.length; }, 0) + ' voci in ' + state.categorie.length + ' categorie.';
+      render(); refreshBar();
+    }
+    function load() {
+      if (token) {
+        return gh('GET').then(function (r) {
+          if (!r.ok) throw r;
+          return r.json();
+        }).then(function (j) { loaded(JSON.parse(b64decode(j.content)), j.sha, 'da GitHub'); })
+          .catch(function (r) { connMsg(r && r.status === 401 ? 'La chiave non è valida o è scaduta.' : 'Non riesco a leggere il menu da GitHub (' + (r && r.status || 'rete') + '). Carico la copia pubblicata.', true); loadPublic(); });
+      }
+      return loadPublic();
+    }
+    function loadPublic() {
+      return fetch('data/menu.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); })
+        .then(function (d) { loaded(d, null, 'dal sito (solo lettura finché non colleghi la chiave)'); })
+        .catch(function () { $('loadmsg').textContent = 'Non riesco a caricare il menu. Controlla la connessione e ricarica la pagina.'; });
+    }
+    $('save').addEventListener('click', function () {
+      var bad = validate();
+      if (bad.length) { refreshBar('Da sistemare prima di salvare: ' + bad.slice(0, 3).join('; ') + (bad.length > 3 ? '…' : '') + '.', 'status-err'); return; }
+      var today = new Date(); state.aggiornato = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+      var content = serialize();
+      $('save').disabled = true; refreshBar('Salvataggio in corso…');
+      var doPut = function () { return gh('PUT', { message: 'Menu aggiornato dal pannello', content: b64encode(content), sha: sha || undefined, branch: CFG.branch }); };
+      (sha ? Promise.resolve() : gh('GET').then(function (r) { return r.ok ? r.json().then(function (j) { sha = j.sha; }) : null; }))
+        .then(doPut)
+        .then(function (r) {
+          if (r.status === 409 || r.status === 422) throw { msg: 'Il menu è stato modificato da un altro dispositivo. Ricarica la pagina e rifai la modifica.' };
+          if (r.status === 401 || r.status === 403) throw { msg: 'La chiave non ha il permesso di scrivere. Controlla che abbia "Contents: Read and write".' };
+          if (!r.ok) throw { msg: 'Salvataggio non riuscito (errore ' + r.status + '). Riprova tra poco.' };
+          return r.json();
+        })
+        .then(function (j) {
+          sha = j.content.sha; saved = content;
+          var t = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+          refreshBar('Salvato alle ' + t + '. Il menu online si aggiorna in circa 2 minuti.', 'status-ok');
+          $('save').disabled = true; $('undo').disabled = true;
+        })
+        .catch(function (e) { refreshBar(e && e.msg || 'Salvataggio non riuscito: controlla la connessione e riprova.', 'status-err'); $('save').disabled = false; });
+    });
+    $('undo').addEventListener('click', function () {
+      if (!confirm('Annullare tutte le modifiche non salvate?')) return;
+      state = JSON.parse(saved); render(); refreshBar();
+    });
+    $('download').addEventListener('click', function () {
+      var a = el('a', { href: URL.createObjectURL(new Blob([serialize()], { type: 'application/json' })), download: 'menu.json' });
+      document.body.appendChild(a); a.click(); a.remove();
+    });
+
+    // ---------- collegamento ----------
+    function connMsg(t, err) { var m = $('conn-msg'); m.textContent = t; m.className = err ? 'status-err' : 'muted'; }
+    function showConn() {
+      $('conn-off').classList.toggle('hide', !!token);
+      $('conn-on').classList.toggle('hide', !token);
+      $('conn-who').textContent = token ? '· repository ' + CFG.owner + '/' + CFG.repo : '';
+    }
+    $('connect').addEventListener('click', function () {
+      var t = $('token').value.trim(); if (!t) { connMsg('Incolla prima la chiave.', true); return; }
+      var prev = token; token = t; connMsg('Verifico la chiave…');
+      gh('GET').then(function (r) {
+        if (!r.ok) throw r;
+        return r.json();
+      }).then(function (j) {
+        try { localStorage.setItem(KEY, token); } catch (e) {}
+        $('token').value = ''; connMsg(''); showConn();
+        if (!dirty()) loaded(JSON.parse(b64decode(j.content)), j.sha, 'da GitHub');
+        else { sha = j.sha; refreshBar(); }
+      }).catch(function (r) {
+        token = prev; connMsg(r && (r.status === 401 || r.status === 404) ? 'Chiave non valida o senza accesso a questo repository.' : 'Non riesco a contattare GitHub. Riprova.', true);
+      });
+    });
+    $('disconnect').addEventListener('click', function () {
+      if (!confirm('Scollegare questo dispositivo? Per salvare dovrai incollare di nuovo la chiave.')) return;
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      token = ''; sha = null; showConn(); refreshBar();
+    });
+
+    showConn(); load();
+  })();
+  </script>
+</body>
+</html>

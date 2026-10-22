@@ -165,7 +165,7 @@
             </a>
           </div>
           <ul class="hero__facts">
-            <li><strong>5 €</strong> la Margherita</li>
+            <li><strong data-prezzo="Margherita" data-formato="breve">5 €</strong> la Margherita</li>
             <li><strong>4,2/5</strong> su Google · 251 recensioni</li>
             <li><strong>2</strong> sedi a Mirabella</li>
           </ul>
@@ -176,7 +176,7 @@
                sizes="(min-width: 900px) 460px, 66vw"
                width="640" height="640" fetchpriority="high" decoding="async"
                alt="Pizza Bufalina della Giara Art con pomodoro San Marzano, mozzarella di bufala e basilico">
-          <p class="hero__tag"><span>Bufalina</span> 6,50 €</p>
+          <p class="hero__tag"><span>Bufalina</span> <b data-prezzo="Bufalina">6,50 €</b></p>
         </div>
       </div>
     </section>
@@ -194,28 +194,29 @@
         <ul class="signature">
           <li class="sig">
             <img src="img/pizza-la-giara-art-280.webp" srcset="img/pizza-la-giara-art-280.webp 280w, img/pizza-la-giara-art-440.webp 440w" sizes="(min-width: 900px) 220px, 40vw" width="280" height="280" loading="lazy" decoding="async" alt="Pizza La Giara Art con guanciale, pecorino e melanzane in agrodolce">
-            <h4>La Giara Art <span>8,00 €</span></h4>
+            <h4>La Giara Art <span data-prezzo="La Giara Art">8,00 €</span></h4>
             <p>Fiordilatte, guanciale, pecorino romano DOP, melanzane in agrodolce, basilico, pepe</p>
           </li>
           <li class="sig">
             <img src="img/pizza-verace-280.webp" srcset="img/pizza-verace-280.webp 280w, img/pizza-verace-440.webp 440w" sizes="(min-width: 900px) 220px, 40vw" width="280" height="280" loading="lazy" decoding="async" alt="Pizza Verace con friarielli, salsiccia e caciocavallo">
-            <h4>Verace <span>8,00 €</span></h4>
+            <h4>Verace <span data-prezzo="Verace">8,00 €</span></h4>
             <p>Fiordilatte, friarielli napoletani, salsiccia, caciocavallo</p>
           </li>
           <li class="sig">
             <img src="img/pizza-emiliana-280.webp" srcset="img/pizza-emiliana-280.webp 280w, img/pizza-emiliana-440.webp 440w" sizes="(min-width: 900px) 220px, 40vw" width="280" height="280" loading="lazy" decoding="async" alt="Pizza Emiliana con mortadella e pistacchio">
-            <h4>Emiliana <span>7,00 €</span></h4>
+            <h4>Emiliana <span data-prezzo="Emiliana">7,00 €</span></h4>
             <p>Fiordilatte, mortadella IGP, crema e granella di pistacchio</p>
           </li>
           <li class="sig">
             <img src="img/pizza-maestro-280.webp" srcset="img/pizza-maestro-280.webp 280w, img/pizza-maestro-440.webp 440w" sizes="(min-width: 900px) 220px, 40vw" width="280" height="280" loading="lazy" decoding="async" alt="Pizza Maestro con crocchè di patate, porcini e provola">
-            <h4>Maestro <span>7,00 €</span></h4>
+            <h4>Maestro <span data-prezzo="Maestro">7,00 €</span></h4>
             <p>Fiordilatte, crocchè di patate, funghi porcini, provola affumicata di Agerola</p>
           </li>
         </ul>
 
         <h3 class="menu__sub">Il menu per categoria</h3>
         <ul class="cats">
+<!-- MENU:vetrina -->
           <li><a class="cat" href="menu.html#m-rosse"><span class="cat__name">Pizze rosse</span><span class="cat__price">da 4,50 €</span><span class="cat__n">18 proposte</span></a></li>
           <li><a class="cat" href="menu.html#m-bianche"><span class="cat__name">Pizze bianche</span><span class="cat__price">da 4,00 €</span><span class="cat__n">16 proposte</span></a></li>
           <li><a class="cat" href="menu.html#m-gourmet"><span class="cat__name">Pizze gourmet</span><span class="cat__price">da 6,00 €</span><span class="cat__n">7 proposte</span></a></li>
@@ -224,6 +225,7 @@
           <li><a class="cat" href="menu.html#m-panuozzi"><span class="cat__name">Panuozzi</span><span class="cat__price">12,00 €</span><span class="cat__n">5 proposte</span></a></li>
           <li><a class="cat" href="menu.html#m-panini"><span class="cat__name">Panini, saltimbocca e tronchetti</span><span class="cat__price">da 4,50 €</span><span class="cat__n">7 proposte</span></a></li>
           <li><a class="cat" href="menu.html#m-friggitoria"><span class="cat__name">Friggitoria</span><span class="cat__price">da 0,60 €</span><span class="cat__n">9 proposte</span></a></li>
+<!-- /MENU:vetrina -->
         </ul>
         <p class="menu__more">
           <a class="btn btn--red btn--lg" href="menu.html"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg>Apri il menu completo</a>
