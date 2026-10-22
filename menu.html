@@ -179,6 +179,25 @@
     if ('IntersectionObserver' in window) {
       if (document.querySelector('.hero__logo')) new IntersectionObserver(function (en) { topbar.classList.toggle('top--logo', !en[0].isIntersecting); }, { rootMargin: '-64px 0px 0px 0px' }).observe(document.querySelector('.hero__logo'));
     } else { topbar.classList.add('top--logo'); }
+    // Barra categorie: sfumatura finché c'è altro a destra, categoria attiva evidenziata e tenuta in vista
+    var bar = document.querySelector('.chips__in');
+    var chipsList = [].slice.call(bar.querySelectorAll('.chip'));
+    var smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    function edge() { bar.classList.toggle('is-end', bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 4); }
+    bar.addEventListener('scroll', edge, { passive: true }); edge();
+    function activate(id) {
+      chipsList.forEach(function (c) {
+        var on = c.getAttribute('href') === '#' + id;
+        if (on) { c.setAttribute('aria-current', 'true'); bar.scrollTo({ left: c.offsetLeft - (bar.clientWidth - c.offsetWidth) / 2, behavior: smooth }); }
+        else c.removeAttribute('aria-current');
+      });
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) {
+        en.forEach(function (e) { if (e.isIntersecting) activate(e.target.id); });
+      }, { rootMargin: '-150px 0px -65% 0px' });
+      document.querySelectorAll('.menu-cat').forEach(function (s) { io.observe(s); });
+    }
   </script>
 </body>
 </html>

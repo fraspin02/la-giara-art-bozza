@@ -181,8 +181,11 @@ strong { font-weight: 700; }
 .menu-hero__lead { margin-top: .6rem; color: var(--muted-on-night); max-width: 38rem; font-size: 1.05rem; }
 .menu-hero .menu-hero__call { display: none; margin-top: 1.4rem; max-width: 40rem; }
 .chips--bar { position: sticky; top: 64px; z-index: 10; background: var(--cream); border-bottom: 1px solid var(--line); }
-.chips__in { display: flex; gap: .5rem; overflow-x: auto; padding-block: .7rem; scrollbar-width: none; }
+.chips__in { position: relative; display: flex; gap: .5rem; overflow-x: auto; padding-block: .7rem; scrollbar-width: none; overscroll-behavior-x: contain; }
 .chips__in::-webkit-scrollbar { display: none; }
+/* Sfumatura a destra: fa capire che la barra scorre (tolta quando si arriva in fondo) */
+.chips__in:not(.is-end) { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); }
+.chip[aria-current="true"] { background: var(--red); border-color: var(--red); color: #fff; }
 .chip {
   flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: .45rem 1rem;
   border: 2px solid var(--ink); border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .95rem; white-space: nowrap;
