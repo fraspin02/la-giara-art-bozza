@@ -13,3 +13,5 @@
 !/favicon.svg
 !/img/
 !/fonts/
+# copie di sicurezza del menu create dal server sulla VPS
+/data/backup/

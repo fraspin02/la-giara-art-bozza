@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { padding-bottom: 7.5rem; }
+    body { padding-bottom: 8rem; }
     .ed-top { background: var(--night); color: var(--on-night); }
     .ed-top__in { display: flex; align-items: center; gap: .8rem; min-height: 64px; }
     .ed-top img { width: 48px; height: 40px; }
@@ -18,16 +18,20 @@
     .ed-main { padding-block: 1.4rem 2rem; display: grid; gap: 1.2rem; max-width: 48rem; }
     .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem; }
     .card h2 { font-size: 1.5rem; text-transform: uppercase; margin-bottom: .4rem; }
+    .notice { border-left: 5px solid var(--crust); }
+    .notice h2 { font-size: 1.25rem; }
     .muted { color: var(--muted); font-size: .92rem; }
     .row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .8rem; }
     label.f { display: grid; gap: .25rem; font-weight: 600; font-size: .9rem; }
-    input[type=text], input[type=password], input[type=search], textarea {
+    input[type=text], input[type=search], textarea {
       width: 100%; font: 400 1rem/1.4 var(--f-body); color: var(--ink); background: #fff;
       border: 1.5px solid #CDBFAE; border-radius: 10px; padding: .6rem .7rem; min-height: 44px;
     }
     textarea { resize: vertical; min-height: 2.8rem; }
     input:focus-visible, textarea:focus-visible { outline: 3px solid var(--crust); outline-offset: 1px; border-color: var(--ink); }
     .invalid { border-color: var(--red) !important; background: #FFF1F1 !important; }
+    .field-err { color: var(--red-dark); font-size: .86rem; font-weight: 600; }
+    .field-err:empty { display: none; }
     .btn--plain { background: var(--cream); color: var(--ink); border-color: var(--line); }
     .btn--plain:hover { border-color: var(--ink); }
     .btn--danger { background: transparent; color: var(--red-dark); border-color: transparent; }
@@ -35,29 +39,42 @@
     .iconbtn { width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: 10px; }
     .status-ok { color: #1E6B34; font-weight: 600; }
     .status-err { color: var(--red-dark); font-weight: 600; }
+    .legend { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin-top: .6rem; }
 
     details.cat-ed { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
     details.cat-ed > summary { display: flex; align-items: center; gap: .6rem; min-height: 56px; padding: .6rem 1rem; cursor: pointer; list-style: none; }
     details.cat-ed > summary::-webkit-details-marker { display: none; }
     details.cat-ed > summary h2 { font-size: 1.4rem; text-transform: uppercase; }
     details.cat-ed > summary .menu-cat__count { margin-left: .2rem; }
-    details.cat-ed > summary .i { margin-left: auto; transition: transform .2s; }
-    details.cat-ed[open] > summary .i { transform: rotate(180deg); }
+    details.cat-ed > summary > .i { margin-left: auto; flex: none; transition: transform .2s; }
+    details.cat-ed[open] > summary > .i { transform: rotate(180deg); }
     .cat-ed__body { padding: 0 1rem 1rem; display: grid; gap: .9rem; }
     .cat-set > summary { display: flex; align-items: center; min-height: 44px; font-weight: 600; font-size: .92rem; color: var(--muted); cursor: pointer; }
     .cat-fields { display: grid; gap: .6rem; padding: .8rem; background: var(--cream); border-radius: 10px; }
     .cat-fields .check { display: flex; align-items: center; gap: .5rem; font-weight: 600; min-height: 44px; }
-    .item { border: 1px solid var(--line); border-radius: 12px; padding: .8rem; display: grid; gap: .55rem; }
+    .item { border: 1px solid var(--line); border-radius: 12px; padding: .8rem; display: grid; gap: .55rem; background: #fff; position: relative; }
+    .item > .badge { position: absolute; top: -.7rem; right: .8rem; }
     .item.is-hidden { opacity: .6; background: repeating-linear-gradient(-45deg, #fff, #fff 8px, #FAF6F0 8px, #FAF6F0 16px); }
+    .item.is-new { border-color: #2E8B4E; box-shadow: inset 5px 0 0 #2E8B4E; }
+    .item.is-changed { border-color: #D9A21B; box-shadow: inset 5px 0 0 var(--crust); }
     .item__top { display: grid; grid-template-columns: 1fr 6.5rem; gap: .5rem; }
     .item__bar { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; }
-    .item__bar .check { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; margin-right: auto; font-weight: 600; font-size: .92rem; }
+    .item__bar .check { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; font-weight: 600; font-size: .92rem; }
+    .item__bar .spacer { margin-right: auto; }
     input[type=checkbox] { width: 22px; height: 22px; accent-color: var(--red); }
     .price { position: relative; }
     .price input { padding-right: 1.8rem; text-align: right; font-variant-numeric: tabular-nums; }
     .price span { position: absolute; right: .7rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
     .add { justify-self: start; }
+    .empty { text-align: center; padding: 1rem; border: 1.5px dashed var(--line); border-radius: 12px; }
     .hide { display: none !important; }
+
+    .badge { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; border-radius: 999px; padding: .15rem .55rem; white-space: nowrap; }
+    .badge:empty { display: none; }
+    .badge--new { background: #E3F4E8; color: #1E6B34; }
+    .badge--chg { background: #FFF3C4; color: #6B4E00; }
+    .flash { animation: flash 1.8s ease-out; }
+    @keyframes flash { 0%, 45% { outline: 3px solid var(--crust); outline-offset: 3px; } 100% { outline: 3px solid transparent; outline-offset: 3px; } }
 
     .savebar {
       position: fixed; inset: auto 0 0 0; z-index: 30; background: var(--night); color: var(--on-night);
@@ -66,10 +83,19 @@
     .savebar__in { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; max-width: 48rem; }
     .savebar__msg { flex: 1 1 12rem; font-size: .92rem; color: var(--muted-on-night); }
     .savebar__msg strong { color: var(--on-night); }
+    .savebar__msg.status-ok { color: #8FE0A6; }
+    .savebar__msg.status-err { color: var(--red-on-dark); }
     .savebar .btn--plain { background: transparent; color: var(--on-night); border-color: rgba(251,246,238,.4); }
     .savebar .btn[disabled] { opacity: .45; cursor: not-allowed; }
-    .help ol { margin: .5rem 0 0 1.2rem; list-style: decimal; display: grid; gap: .3rem; }
-    .help a { color: var(--red-dark); font-weight: 600; }
+
+    .toast {
+      position: fixed; left: 50%; transform: translateX(-50%); bottom: 6rem; z-index: 40;
+      display: flex; align-items: center; gap: .6rem; width: max-content; max-width: min(100% - 2rem, 34rem);
+      background: var(--ink); color: #fff; border-radius: 12px; padding: .55rem .55rem .55rem 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,.3); font-size: .95rem;
+    }
+    .toast button { flex: none; min-height: 44px; padding: 0 .8rem; border: 0; border-radius: 8px; background: transparent; color: var(--crust); font: 700 .95rem var(--f-body); cursor: pointer; }
+    .toast button:hover { background: rgba(255,255,255,.08); }
   </style>
 </head>
 <body>
@@ -90,32 +116,18 @@
   </header>
 
   <main class="wrap ed-main">
-    <!-- Collegamento a GitHub -->
-    <section class="card" id="conn" aria-labelledby="conn-t">
-      <h2 id="conn-t">Collegamento</h2>
-      <div id="conn-off">
-        <p class="muted">Per salvare serve la chiave di accesso del sito (si inserisce una volta sola su questo telefono o computer). Senza chiave puoi guardare e provare le modifiche, ma non pubblicarle.</p>
-        <div class="row">
-          <label class="f" style="flex:1 1 16rem">Chiave di accesso
-            <input type="password" id="token" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
-          </label>
-          <button class="btn btn--red" id="connect" type="button" style="align-self:end">Collega</button>
-        </div>
-        <p class="muted" id="conn-msg" role="status"></p>
-        <details class="help" style="margin-top:.6rem">
-          <summary class="muted" style="cursor:pointer;min-height:44px;display:flex;align-items:center">Come si crea la chiave</summary>
-          <ol class="muted">
-            <li>Su GitHub apri <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Nuova chiave (fine-grained token)</a>.</li>
-            <li>In <em>Repository access</em> scegli <em>Only select repositories</em> e seleziona solo il repository del sito.</li>
-            <li>In <em>Permissions → Contents</em> scegli <em>Read and write</em>. Nient'altro.</li>
-            <li>Crea la chiave, copiala e incollala qui sopra.</li>
-          </ol>
-        </details>
+    <section class="card notice hide" id="draft" aria-labelledby="draft-t">
+      <h2 id="draft-t">Modifiche non salvate</h2>
+      <p class="muted" id="draft-msg"></p>
+      <div class="row">
+        <button class="btn btn--red btn--sm" id="draft-yes" type="button">Riprendi</button>
+        <button class="btn btn--plain btn--sm" id="draft-no" type="button">Scarta</button>
       </div>
-      <div id="conn-on" class="hide">
-        <p><span class="status-ok">Collegato</span> <span class="muted" id="conn-who"></span></p>
-        <div class="row"><button class="btn btn--plain btn--sm" id="disconnect" type="button">Scollega questo dispositivo</button></div>
-      </div>
+    </section>
+
+    <section class="card notice hide" id="demo" aria-labelledby="demo-t">
+      <h2 id="demo-t">Modalità prova</h2>
+      <p class="muted">Su questa copia del sito il salvataggio non è attivo: puoi provare le modifiche e scaricarle, ma il menu online non cambia.</p>
     </section>
 
     <section class="card" aria-labelledby="find-t">
@@ -124,6 +136,7 @@
         <input type="search" id="find" placeholder="es. Margherita, friarielli…" autocomplete="off">
       </label>
       <p class="muted" id="loadmsg" role="status" style="margin-top:.5rem">Caricamento del menu…</p>
+      <p class="legend muted"><span><span class="badge badge--new">Nuova</span> voce aggiunta</span><span><span class="badge badge--chg">Modificata</span> voce cambiata</span><span>· restano segnate finché non salvi</span></p>
     </section>
 
     <div id="cats" style="display:grid;gap:.8rem"></div>
@@ -131,25 +144,27 @@
     <button class="btn btn--plain add" id="addcat" type="button"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Nuova categoria</button>
   </main>
 
-  <div class="savebar" role="region" aria-label="Salvataggio">
+  <div class="toast hide" id="toast" role="status" aria-live="polite"><span id="toast-t"></span><button type="button" id="toast-b" class="hide"></button></div>
+
+  <div class="savebar" id="savebar" role="region" aria-label="Salvataggio">
     <div class="wrap savebar__in">
       <p class="savebar__msg" id="savemsg" role="status" aria-live="polite">Nessuna modifica.</p>
       <button class="btn btn--plain btn--sm" id="download" type="button">Scarica copia</button>
-      <button class="btn btn--plain btn--sm" id="undo" type="button" disabled>Annulla</button>
+      <button class="btn btn--plain btn--sm" id="undo" type="button" disabled>Annulla tutto</button>
       <button class="btn btn--red" id="save" type="button" disabled>Salva e pubblica</button>
     </div>
   </div>
 
   <script>
   (function () {
-    // Repository del sito su GitHub (da cambiare se il sito si sposta)
-    var CFG = { owner: 'fraspin02', repo: 'la-giara-art-bozza', branch: 'main', path: 'data/menu.json' };
-    var KEY = 'giara-menu-token';
-    var API = 'https://api.github.com/repos/' + CFG.owner + '/' + CFG.repo + '/contents/' + CFG.path;
-
-    var state = null, saved = '', sha = null, token = '';
+    // Il salvataggio passa da /api/menu (tools/server.py sulla VPS). Dove non c'è, il pannello va in modalità prova.
+    // URL senza eventuali utente:password nell'indirizzo, che fetch rifiuta
+    var HERE = location.origin + location.pathname.replace(/[^/]*$/, '');
+    var API = HERE + 'api/menu', DRAFT = 'giara-menu-bozza';
+    var state = null, saved = '', version = null, online = false, busy = false, lastSaved = '';
+    var seq = 0, base = { items: {}, itemCat: {}, cats: {} }, openCats = {}, shown = {};
     var $ = function (id) { return document.getElementById(id); };
-    try { token = localStorage.getItem(KEY) || ''; } catch (e) {}
+    try { localStorage.removeItem('giara-menu-token'); } catch (e) {} // chiave GitHub della versione precedente
 
     // ---------- utilità ----------
     function el(tag, attrs, kids) {
@@ -164,119 +179,199 @@
       return n;
     }
     function icon(id) { var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('class', 'i'); s.setAttribute('aria-hidden', 'true'); var u = document.createElementNS('http://www.w3.org/2000/svg', 'use'); u.setAttribute('href', '#' + id); s.appendChild(u); return s; }
-    function b64decode(b64) { var bin = atob(b64.replace(/\n/g, '')); var bytes = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i); return new TextDecoder().decode(bytes); }
-    function b64encode(str) { var bytes = new TextEncoder().encode(str), bin = ''; for (var i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(bin); }
     function parsePrice(v) { v = String(v).trim().replace('€', '').replace(/\s/g, '').replace(',', '.'); return /^\d+(\.\d{1,2})?$/.test(v) ? parseFloat(v) : NaN; }
-    function fmtPrice(n) { return isNaN(n) ? '' : n.toFixed(2).replace('.', ','); }
+    function fmtPrice(n) { return typeof n === 'number' && !isNaN(n) ? n.toFixed(2).replace('.', ',') : ''; }
+    function priceOk(n) { return typeof n === 'number' && !isNaN(n) && n >= 0; }
     function slug(s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'categoria'; }
+    function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
     function serialize() { return JSON.stringify(state, null, 2) + '\n'; }
-    function gh(method, body) {
-      return fetch(API + (method === 'GET' ? '?ref=' + CFG.branch + '&t=' + Date.now() : ''), {
-        method: method, cache: 'no-store',
-        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
-        body: body ? JSON.stringify(body) : undefined
+    function dirty() { return !!state && serialize() !== saved; }
+    function find(k) { return document.querySelector('[data-k="' + k + '"]'); }
+    function flash(k) { var n = find(k); if (!n) return; n.classList.remove('flash'); void n.offsetWidth; n.classList.add('flash'); n.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+
+    // ---------- confronto con l'ultima versione salvata ----------
+    // Ogni voce e categoria ha una chiave _k non salvata nel file, per riconoscerla anche se cambia nome o posto.
+    function tag(o, k) { Object.defineProperty(o, '_k', { value: k || ++seq, writable: true, configurable: true, enumerable: false }); return o; }
+    function tagAll() { seq = 0; state.categorie.forEach(function (c) { tag(c); c.voci.forEach(function (v) { tag(v); }); }); }
+    function catInfo(c) { var o = {}; for (var p in c) if (p !== 'voci') o[p] = c[p]; return JSON.stringify(o); }
+    function snapshot() {
+      base = { items: {}, itemCat: {}, cats: {} };
+      state.categorie.forEach(function (c) {
+        base.cats[c._k] = catInfo(c);
+        c.voci.forEach(function (v) { base.items[v._k] = JSON.stringify(v); base.itemCat[v._k] = c._k; });
       });
     }
-
-    // ---------- stato modifiche ----------
-    function dirty() { return state && serialize() !== saved; }
-    function refreshBar(msg, cls) {
-      var d = dirty();
-      $('save').disabled = !d || !token;
-      $('undo').disabled = !d;
-      var m = $('savemsg'); m.className = 'savebar__msg' + (cls ? ' ' + cls : '');
-      if (msg) { m.textContent = msg; return; }
-      m.textContent = '';
-      if (d && !token) m.append(el('strong', { text: 'Modifiche non salvate.' }), ' Collega la chiave per pubblicarle.');
-      else if (d) m.append(el('strong', { text: 'Modifiche non salvate.' }));
-      else m.textContent = 'Nessuna modifica.';
+    function itemStatus(v) { var b = base.items[v._k]; return b == null ? 'new' : b !== JSON.stringify(v) ? 'changed' : ''; }
+    function summary() {
+      var s = { nuove: 0, cambiate: 0, eliminate: 0, cat: 0, perCat: {} }, seen = {}, seenCat = {};
+      state.categorie.forEach(function (c) {
+        var n = 0; seenCat[c._k] = 1;
+        if (base.cats[c._k] == null) s.cat++; else if (base.cats[c._k] !== catInfo(c)) { s.cat++; n++; }
+        c.voci.forEach(function (v) { seen[v._k] = 1; var st = itemStatus(v); if (st === 'new') { s.nuove++; n++; } else if (st === 'changed') { s.cambiate++; n++; } });
+        s.perCat[c._k] = n;
+      });
+      for (var k in base.items) if (!seen[k]) { s.eliminate++; if (base.itemCat[k] in s.perCat) s.perCat[base.itemCat[k]]++; }
+      for (k in base.cats) if (!seenCat[k]) s.cat++;
+      return s;
     }
-    function changed() { refreshBar(); }
+
+    // ---------- barra di salvataggio e avvisi ----------
+    function refreshBar(msg, cls) {
+      var d = dirty(), s = summary();
+      $('save').disabled = !d || !online || busy;
+      $('undo').disabled = !d || busy;
+      document.querySelectorAll('#cats .chg').forEach(function (b) { var n = s.perCat[b.getAttribute('data-for')] || 0; b.textContent = n ? plural(n, 'modifica', 'modifiche') : ''; });
+      var m = $('savemsg'); m.className = 'savebar__msg' + (cls ? ' ' + cls : ''); m.textContent = '';
+      if (msg) { m.textContent = msg; return; }
+      if (!d) { m.textContent = lastSaved || 'Nessuna modifica.'; if (lastSaved) m.className += ' status-ok'; return; }
+      var parts = [];
+      if (s.nuove) parts.push(plural(s.nuove, 'voce nuova', 'voci nuove'));
+      if (s.cambiate) parts.push(plural(s.cambiate, 'voce cambiata', 'voci cambiate'));
+      if (s.eliminate) parts.push(plural(s.eliminate, 'voce eliminata', 'voci eliminate'));
+      if (s.cat) parts.push(plural(s.cat, 'categoria cambiata', 'categorie cambiate'));
+      m.append(el('strong', { text: 'Da salvare: ' }), (parts.join(', ') || 'ordine cambiato') + '.');
+      if (!online) m.append(' Modalità prova: usa «Scarica copia».');
+    }
+    var toastT;
+    function toast(text, label, fn) {
+      var t = $('toast'), b = $('toast-b');
+      $('toast-t').textContent = text;
+      b.classList.toggle('hide', !label); b.textContent = label || '';
+      b.onclick = function () { t.classList.add('hide'); fn(); };
+      t.style.bottom = ($('savebar').offsetHeight + 12) + 'px';
+      t.classList.remove('hide');
+      clearTimeout(toastT); toastT = setTimeout(function () { t.classList.add('hide'); }, label ? 8000 : 4000);
+    }
+    function changed() { lastSaved = ''; refreshBar(); scheduleDraft(); }
+    function fitBar() { document.body.style.paddingBottom = ($('savebar').offsetHeight + 32) + 'px'; }
+    window.addEventListener('resize', fitBar);
     window.addEventListener('beforeunload', function (e) { if (dirty()) { e.preventDefault(); e.returnValue = ''; } });
 
     // ---------- disegno ----------
-    var openCats = {};
     function render() {
       var box = $('cats'); box.textContent = '';
       state.categorie.forEach(function (cat, ci) { box.appendChild(renderCat(cat, ci)); });
-      applyFilter();
+      applyFilter(); refreshBar();
     }
     function renderCat(cat, ci) {
-      var count = el('span', { class: 'menu-cat__count', text: String(cat.voci.length) });
+      var count = el('span', { class: 'menu-cat__count', text: String(cat.voci.length), title: 'voci' });
       var title = el('h2', { text: cat.titolo || 'Nuova categoria' });
-      var d = el('details', { class: 'cat-ed', 'data-ci': ci }, [el('summary', {}, [title, count, icon('i-chev')])]);
-      d.open = !!openCats[cat.id];
-      d.addEventListener('toggle', function () { openCats[cat.id] = d.open; });
+      var d = el('details', { class: 'cat-ed', 'data-k': cat._k }, [el('summary', {}, [title, count, el('span', { class: 'badge badge--chg chg', 'data-for': cat._k }), icon('i-chev')])]);
+      d.open = !!openCats[cat._k];
+      d.addEventListener('toggle', function () { openCats[cat._k] = d.open; });
       var body = el('div', { class: 'cat-ed__body' });
 
-      var fTitle = el('input', { type: 'text', value: cat.titolo || '', on: { input: function () { cat.titolo = this.value; title.textContent = this.value || 'Nuova categoria'; changed(); } } });
+      var noName = shown[cat._k] && !String(cat.titolo || '').trim();
+      var fTitle = el('input', { type: 'text', value: cat.titolo || '', class: noName ? 'invalid' : null, on: { input: function () { cat.titolo = this.value; title.textContent = this.value || 'Nuova categoria'; this.classList.toggle('invalid', !!shown[cat._k] && !this.value.trim()); changed(); } } });
       var fShort = el('input', { type: 'text', value: cat.breve || '', placeholder: 'uguale al nome', on: { input: function () { if (this.value.trim()) cat.breve = this.value; else delete cat.breve; changed(); } } });
       var fNote = el('input', { type: 'text', value: cat.nota || '', placeholder: 'es. Maxi 50×50 cm', on: { input: function () { if (this.value.trim()) cat.nota = this.value; else delete cat.nota; changed(); } } });
-      var fHome = el('input', { type: 'checkbox', on: { change: function () { cat.vetrina = this.checked; changed(); } } }); fHome.checked = cat.vetrina !== false;
-      var catTools = el('div', { class: 'item__bar' }, [
-        el('span', { style: 'margin-right:auto' }),
-        el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta su la categoria ' + cat.titolo, disabled: ci === 0, on: { click: function () { moveCat(ci, -1); } } }, [icon('i-up')]),
-        el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta giù la categoria ' + cat.titolo, disabled: ci === state.categorie.length - 1, on: { click: function () { moveCat(ci, 1); } } }, [icon('i-down')]),
-        el('button', { class: 'btn btn--danger btn--sm', type: 'button', on: { click: function () { delCat(ci); } } }, [icon('i-trash'), 'Elimina categoria'])
-      ]);
-      body.appendChild(el('details', { class: 'cat-set' }, [el('summary', { text: 'Impostazioni categoria' }), el('div', { class: 'cat-fields' }, [
+      var fHome = el('input', { type: 'checkbox', on: { change: function () { cat.vetrina = this.checked; changed(); toast(this.checked ? '«' + cat.titolo + '» compare nella home.' : '«' + cat.titolo + '» non compare più nella home.'); } } }); fHome.checked = cat.vetrina !== false;
+      var set = el('details', { class: 'cat-set' }, [el('summary', { text: 'Impostazioni categoria' }), el('div', { class: 'cat-fields' }, [
         el('label', { class: 'f' }, ['Nome della categoria', fTitle]),
         el('label', { class: 'f' }, ['Nome breve nella barra (facoltativo)', fShort]),
         el('label', { class: 'f' }, ['Nota sotto il titolo (facoltativa)', fNote]),
         el('label', { class: 'check' }, [fHome, 'Mostra nella home']),
-        catTools
-      ])]));
+        el('div', { class: 'item__bar' }, [
+          el('span', { class: 'spacer' }),
+          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'data-act': 'up', 'aria-label': 'Sposta su la categoria ' + cat.titolo, disabled: ci === 0, on: { click: function () { moveCat(ci, -1, 'up'); } } }, [icon('i-up')]),
+          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'data-act': 'down', 'aria-label': 'Sposta giù la categoria ' + cat.titolo, disabled: ci === state.categorie.length - 1, on: { click: function () { moveCat(ci, 1, 'down'); } } }, [icon('i-down')]),
+          el('button', { class: 'btn btn--danger btn--sm', type: 'button', on: { click: function () { delCat(ci); } } }, [icon('i-trash'), 'Elimina categoria'])
+        ])
+      ])]);
+      set.open = noName;
+      body.appendChild(set);
 
-      cat.voci.forEach(function (v, vi) { body.appendChild(renderItem(cat, ci, v, vi, count)); });
-      body.appendChild(el('button', { class: 'btn btn--plain add', type: 'button', on: { click: function () {
-        cat.voci.push({ nome: '', ingredienti: '', prezzo: 0, visibile: true }); openCats[cat.id] = true; changed(); render();
-        var items = $('cats').querySelectorAll('[data-ci="' + ci + '"] .item'); var last = items[items.length - 1]; if (last) last.querySelector('input').focus();
-      } } }, [icon('i-plus'), 'Aggiungi voce']));
+      body.appendChild(el('button', { class: 'btn btn--red btn--sm add', type: 'button', on: { click: function () { addItem(cat); } } }, [icon('i-plus'), 'Aggiungi voce']));
+      if (!cat.voci.length) body.appendChild(el('p', { class: 'muted empty', text: 'Nessuna voce in questa categoria. Premi «Aggiungi voce».' }));
+      cat.voci.forEach(function (v, vi) { body.appendChild(renderItem(cat, ci, v, vi)); });
       d.appendChild(body);
       return d;
     }
-    function renderItem(cat, ci, v, vi, count) {
-      var box = el('div', { class: 'item' + (v.visibile === false ? ' is-hidden' : ''), 'data-search': ((v.nome || '') + ' ' + (v.ingredienti || '')).toLowerCase() });
-      var name = el('input', { type: 'text', value: v.nome || '', 'aria-label': 'Nome della voce', placeholder: 'Nome', on: { input: function () {
-        v.nome = this.value; price.setAttribute('aria-label', 'Prezzo di ' + (v.nome || 'nuova voce') + ' in euro'); ingr.setAttribute('aria-label', 'Ingredienti di ' + (v.nome || 'nuova voce')); this.classList.toggle('invalid', !this.value.trim()); box.setAttribute('data-search', (v.nome + ' ' + v.ingredienti).toLowerCase()); changed();
-      } } });
-      var price = el('input', { type: 'text', inputmode: 'decimal', value: fmtPrice(v.prezzo), 'aria-label': 'Prezzo di ' + (v.nome || 'nuova voce') + ' in euro', on: {
-        input: function () { var p = parsePrice(this.value); this.classList.toggle('invalid', isNaN(p)); if (!isNaN(p)) { v.prezzo = p; changed(); } },
-        blur: function () { var p = parsePrice(this.value); if (!isNaN(p)) this.value = fmtPrice(p); }
+    function renderItem(cat, ci, v, vi) {
+      var box = el('div', { class: 'item' + (v.visibile === false ? ' is-hidden' : ''), 'data-k': v._k });
+      var badge = el('span', { class: 'badge' });
+      var errName = el('p', { class: 'field-err', id: 'en' + v._k }), errPrice = el('p', { class: 'field-err', id: 'ep' + v._k });
+      function label() { return v.nome || 'nuova voce'; }
+      function mark() {
+        var st = itemStatus(v);
+        box.classList.toggle('is-new', st === 'new'); box.classList.toggle('is-changed', st === 'changed');
+        badge.className = 'badge' + (st === 'new' ? ' badge--new' : st === 'changed' ? ' badge--chg' : '');
+        badge.textContent = st === 'new' ? 'Nuova' : st === 'changed' ? 'Modificata' : '';
+        box.setAttribute('data-search', ((v.nome || '') + ' ' + (v.ingredienti || '')).toLowerCase());
+      }
+      function check() {
+        if (!shown[v._k]) return;
+        var nOk = !!String(v.nome || '').trim(), pOk = priceOk(v.prezzo);
+        name.classList.toggle('invalid', !nOk); price.classList.toggle('invalid', !pOk);
+        errName.textContent = nOk ? '' : 'Scrivi il nome.';
+        errPrice.textContent = pOk ? '' : 'Scrivi il prezzo, per esempio 6,50.';
+      }
+      var name = el('input', { type: 'text', value: v.nome || '', 'aria-label': 'Nome della voce', 'aria-describedby': errName.id, placeholder: 'Nome', on: {
+        input: function () { v.nome = this.value; price.setAttribute('aria-label', 'Prezzo di ' + label() + ' in euro'); ingr.setAttribute('aria-label', 'Ingredienti di ' + label()); check(); mark(); changed(); },
+        blur: function () { if (!this.value.trim() && v.prezzo != null) { shown[v._k] = 1; check(); } }
       } });
-      var ingr = el('textarea', { rows: '2', 'aria-label': 'Ingredienti di ' + (v.nome || 'nuova voce'), placeholder: 'Ingredienti (facoltativi)', on: { input: function () {
-        v.ingredienti = this.value; box.setAttribute('data-search', (v.nome + ' ' + v.ingredienti).toLowerCase()); changed();
-      } } }); ingr.value = v.ingredienti || '';
-      var vis = el('input', { type: 'checkbox', on: { change: function () { v.visibile = this.checked; box.classList.toggle('is-hidden', !this.checked); changed(); } } }); vis.checked = v.visibile !== false;
-      var lbl = v.nome || 'voce';
+      var price = el('input', { type: 'text', inputmode: 'decimal', value: fmtPrice(v.prezzo), placeholder: '0,00', 'aria-label': 'Prezzo di ' + label() + ' in euro', 'aria-describedby': errPrice.id, on: {
+        input: function () { var p = parsePrice(this.value); v.prezzo = isNaN(p) ? null : p; check(); mark(); changed(); },
+        blur: function () { if (priceOk(v.prezzo)) this.value = fmtPrice(v.prezzo); else if (this.value.trim()) { shown[v._k] = 1; check(); } }
+      } });
+      var ingr = el('textarea', { rows: '2', 'aria-label': 'Ingredienti di ' + label(), placeholder: 'Ingredienti (facoltativi)', on: { input: function () { v.ingredienti = this.value; mark(); changed(); } } }); ingr.value = v.ingredienti || '';
+      var vis = el('input', { type: 'checkbox', on: { change: function () {
+        v.visibile = this.checked; box.classList.toggle('is-hidden', !this.checked); mark(); changed();
+        toast(this.checked ? '«' + label() + '» torna visibile nel menu.' : '«' + label() + '» nascosta: resta qui ma non si vede nel menu.');
+      } } }); vis.checked = v.visibile !== false;
       box.append(
         el('div', { class: 'item__top' }, [name, el('div', { class: 'price' }, [price, el('span', { 'aria-hidden': 'true', text: '€' })])]),
-        ingr,
+        badge, errName, errPrice, ingr,
         el('div', { class: 'item__bar' }, [
-          el('label', { class: 'check' }, [vis, 'Visibile']),
-          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta su ' + lbl, disabled: vi === 0, on: { click: function () { move(cat, vi, -1); } } }, [icon('i-up')]),
-          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'aria-label': 'Sposta giù ' + lbl, disabled: vi === cat.voci.length - 1, on: { click: function () { move(cat, vi, 1); } } }, [icon('i-down')]),
-          el('button', { class: 'btn btn--danger iconbtn', type: 'button', 'aria-label': 'Elimina ' + lbl, on: { click: function () {
-            if (!confirm('Eliminare "' + (v.nome || 'questa voce') + '" dal menu?')) return;
-            cat.voci.splice(vi, 1); changed(); render();
-          } } }, [icon('i-trash')])
+          el('label', { class: 'check' }, [vis, 'Visibile']), el('span', { class: 'spacer' }),
+          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'data-act': 'up', 'aria-label': 'Sposta su ' + label(), disabled: vi === 0, on: { click: function () { move(cat, vi, -1, 'up'); } } }, [icon('i-up')]),
+          el('button', { class: 'btn btn--plain iconbtn', type: 'button', 'data-act': 'down', 'aria-label': 'Sposta giù ' + label(), disabled: vi === cat.voci.length - 1, on: { click: function () { move(cat, vi, 1, 'down'); } } }, [icon('i-down')]),
+          el('button', { class: 'btn btn--danger iconbtn', type: 'button', 'aria-label': 'Elimina ' + label(), on: { click: function () { delItem(cat, vi); } } }, [icon('i-trash')])
         ])
       );
+      mark(); check();
       return box;
     }
-    function move(cat, i, d) { var j = i + d; if (j < 0 || j >= cat.voci.length) return; var t = cat.voci[i]; cat.voci[i] = cat.voci[j]; cat.voci[j] = t; changed(); render(); }
-    function moveCat(i, d) { var a = state.categorie, j = i + d; if (j < 0 || j >= a.length) return; var t = a[i]; a[i] = a[j]; a[j] = t; changed(); render(); }
+
+    // ---------- azioni ----------
+    function refocus(k, act) {
+      var n = find(k); if (!n) return; flash(k);
+      var b = n.querySelector('[data-act="' + act + '"]');
+      if (b && b.disabled) b = n.querySelector('[data-act="' + (act === 'up' ? 'down' : 'up') + '"]');
+      if (b) b.focus({ preventScroll: true });
+    }
+    function alive(cat) { return state.categorie.indexOf(cat) >= 0; }
+    function addItem(cat) {
+      var v = tag({ nome: '', ingredienti: '', prezzo: null, visibile: true });
+      cat.voci.unshift(v); openCats[cat._k] = true; $('find').value = '';
+      changed(); render();
+      find(v._k).querySelector('input').focus({ preventScroll: true }); flash(v._k);
+      toast('Voce aggiunta in cima a «' + cat.titolo + '»: scrivi nome e prezzo. Con le frecce la sposti.');
+    }
+    function delItem(cat, vi) {
+      var v = cat.voci.splice(vi, 1)[0]; changed(); render();
+      toast('«' + (v.nome || 'Voce senza nome') + '» eliminata.', 'Annulla', function () {
+        if (!alive(cat)) return;
+        cat.voci.splice(Math.min(vi, cat.voci.length), 0, v); openCats[cat._k] = true; changed(); render(); flash(v._k);
+      });
+    }
+    function move(cat, i, d, act) { var j = i + d; if (j < 0 || j >= cat.voci.length) return; var t = cat.voci[i]; cat.voci[i] = cat.voci[j]; cat.voci[j] = t; changed(); render(); refocus(t._k, act); }
+    function moveCat(i, d, act) { var a = state.categorie, j = i + d; if (j < 0 || j >= a.length) return; var t = a[i]; a[i] = a[j]; a[j] = t; changed(); render(); refocus(t._k, act); }
     function delCat(i) {
       var c = state.categorie[i];
       if (!confirm('Eliminare la categoria "' + c.titolo + '" con tutte le sue ' + c.voci.length + ' voci?')) return;
       state.categorie.splice(i, 1); changed(); render();
+      toast('Categoria «' + c.titolo + '» eliminata.', 'Annulla', function () {
+        state.categorie.splice(Math.min(i, state.categorie.length), 0, c); changed(); render(); flash(c._k);
+      });
     }
     $('addcat').addEventListener('click', function () {
       var name = prompt('Nome della nuova categoria (es. Dolci)'); if (!name || !name.trim()) return;
       var id = slug(name), n = 2, ids = state.categorie.map(function (c) { return c.id; });
       while (ids.indexOf(id) >= 0) id = slug(name) + '-' + n++;
-      state.categorie.push({ id: id, titolo: name.trim(), vetrina: true, voci: [{ nome: '', ingredienti: '', prezzo: 0, visibile: true }] });
-      openCats[id] = true; changed(); render();
+      var c = tag({ id: id, titolo: name.trim(), vetrina: true, voci: [] });
+      state.categorie.push(c); openCats[c._k] = true; changed(); render(); flash(c._k);
+      toast('Categoria «' + c.titolo + '» creata in fondo. Ora aggiungi le voci.');
     });
 
     // ---------- ricerca ----------
@@ -291,102 +386,112 @@
     }
     $('find').addEventListener('input', applyFilter);
 
-    // ---------- verifica prima del salvataggio ----------
-    function validate() {
-      var bad = [];
-      state.categorie.forEach(function (c) {
-        if (!String(c.titolo || '').trim()) bad.push('una categoria senza nome');
-        c.voci.forEach(function (v) {
-          if (!String(v.nome || '').trim()) bad.push('una voce senza nome in "' + c.titolo + '"');
-          if (typeof v.prezzo !== 'number' || isNaN(v.prezzo) || v.prezzo < 0) bad.push('il prezzo di "' + v.nome + '"');
-        });
-      });
-      if (document.querySelector('#cats .invalid')) bad.push('un prezzo scritto in modo non valido (usa per esempio 6,50)');
-      return bad;
+    // ---------- bozza sul dispositivo (se la pagina si chiude prima di salvare) ----------
+    var draftT;
+    function withKeys(k, v) { return v && typeof v === 'object' && !Array.isArray(v) && v._k ? Object.assign({ _k: v._k }, v) : v; }
+    function unKey(o) {
+      if (o && typeof o === 'object') {
+        if (!Array.isArray(o) && '_k' in o) { var k = o._k; delete o._k; tag(o, k); seq = Math.max(seq, k); }
+        for (var p in o) unKey(o[p]);
+      }
+      return o;
+    }
+    function scheduleDraft() { clearTimeout(draftT); draftT = setTimeout(saveDraft, 400); }
+    function saveDraft() {
+      try {
+        if (dirty()) localStorage.setItem(DRAFT, JSON.stringify({ base: saved, ts: Date.now(), data: JSON.stringify(state, withKeys) }));
+        else localStorage.removeItem(DRAFT);
+      } catch (e) {}
+    }
+    function clearDraft() { clearTimeout(draftT); try { localStorage.removeItem(DRAFT); } catch (e) {} }
+    function offerDraft() {
+      var d, data;
+      try { d = JSON.parse(localStorage.getItem(DRAFT) || 'null'); data = d && JSON.parse(d.data); } catch (e) {}
+      if (!data || !data.categorie) return clearDraft();
+      if (JSON.stringify(data, function (k, v) { return k === '_k' ? undefined : v; }, 2) + '\n' === saved) return clearDraft();
+      var when = new Date(d.ts).toLocaleString('it-IT', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+      $('draft-msg').textContent = 'Su questo dispositivo ci sono modifiche del ' + when + ' che non sono state salvate. Vuoi riprenderle?' +
+        (d.base !== saved ? ' Attenzione: nel frattempo il menu è stato cambiato; se le riprendi e salvi, sostituisci quella versione.' : '');
+      $('draft').classList.remove('hide');
+      $('draft-yes').onclick = function () { state = unKey(data); $('draft').classList.add('hide'); changed(); render(); toast('Modifiche riprese: controllale e poi salva.'); };
+      $('draft-no').onclick = function () { clearDraft(); $('draft').classList.add('hide'); toast('Modifiche non salvate scartate.'); };
     }
 
-    // ---------- caricamento e salvataggio ----------
-    function loaded(data, newSha, source) {
-      state = data; sha = newSha; saved = serialize();
-      $('loadmsg').textContent = 'Menu caricato ' + source + '. ' + state.categorie.reduce(function (n, c) { return n + c.voci.length; }, 0) + ' voci in ' + state.categorie.length + ' categorie.';
-      render(); refreshBar();
-    }
-    function load() {
-      if (token) {
-        return gh('GET').then(function (r) {
-          if (!r.ok) throw r;
-          return r.json();
-        }).then(function (j) { loaded(JSON.parse(b64decode(j.content)), j.sha, 'da GitHub'); })
-          .catch(function (r) { connMsg(r && r.status === 401 ? 'La chiave non è valida o è scaduta.' : 'Non riesco a leggere il menu da GitHub (' + (r && r.status || 'rete') + '). Carico la copia pubblicata.', true); loadPublic(); });
-      }
-      return loadPublic();
+    // ---------- caricamento ----------
+    function loaded(data, how) {
+      state = data; tagAll(); saved = serialize(); snapshot();
+      var n = state.categorie.reduce(function (t, c) { return t + c.voci.length; }, 0);
+      $('loadmsg').textContent = 'Menu caricato ' + how + ': ' + n + ' voci in ' + state.categorie.length + ' categorie. Apri una categoria per modificarla.';
+      $('demo').classList.toggle('hide', online);
+      $('save').classList.toggle('hide', !online);
+      render(); fitBar(); offerDraft();
     }
     function loadPublic() {
-      return fetch('data/menu.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); })
-        .then(function (d) { loaded(d, null, 'dal sito (solo lettura finché non colleghi la chiave)'); })
+      return fetch(HERE + 'data/menu.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); })
+        .then(function (d) { online = false; loaded(d, 'dal sito'); })
         .catch(function () { $('loadmsg').textContent = 'Non riesco a caricare il menu. Controlla la connessione e ricarica la pagina.'; });
     }
-    $('save').addEventListener('click', function () {
-      var bad = validate();
-      if (bad.length) { refreshBar('Da sistemare prima di salvare: ' + bad.slice(0, 3).join('; ') + (bad.length > 3 ? '…' : '') + '.', 'status-err'); return; }
-      var today = new Date(); state.aggiornato = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-      var content = serialize();
-      $('save').disabled = true; refreshBar('Salvataggio in corso…');
-      var doPut = function () { return gh('PUT', { message: 'Menu aggiornato dal pannello', content: b64encode(content), sha: sha || undefined, branch: CFG.branch }); };
-      (sha ? Promise.resolve() : gh('GET').then(function (r) { return r.ok ? r.json().then(function (j) { sha = j.sha; }) : null; }))
-        .then(doPut)
-        .then(function (r) {
-          if (r.status === 409 || r.status === 422) throw { msg: 'Il menu è stato modificato da un altro dispositivo. Ricarica la pagina e rifai la modifica.' };
-          if (r.status === 401 || r.status === 403) throw { msg: 'La chiave non ha il permesso di scrivere. Controlla che abbia "Contents: Read and write".' };
-          if (!r.ok) throw { msg: 'Salvataggio non riuscito (errore ' + r.status + '). Riprova tra poco.' };
-          return r.json();
-        })
-        .then(function (j) {
-          sha = j.content.sha; saved = content;
-          var t = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-          refreshBar('Salvato alle ' + t + '. Il menu online si aggiorna in circa 2 minuti.', 'status-ok');
-          $('save').disabled = true; $('undo').disabled = true;
-        })
-        .catch(function (e) { refreshBar(e && e.msg || 'Salvataggio non riuscito: controlla la connessione e riprova.', 'status-err'); $('save').disabled = false; });
+    fetch(API, { cache: 'no-store' }).then(function (r) {
+      if (!r.ok || !/json/.test(r.headers.get('Content-Type') || '')) throw r;
+      version = r.headers.get('X-Menu-Versione');
+      return r.json();
+    }).then(function (d) { online = true; loaded(d, 'dal server'); }, function (r) {
+      if (r && r.status === 401) { $('loadmsg').textContent = 'Accesso non riuscito: ricarica la pagina e inserisci utente e password.'; return; }
+      loadPublic();
     });
+
+    // ---------- salvataggio ----------
+    function problems() {
+      var bad = [];
+      state.categorie.forEach(function (c) {
+        if (!String(c.titolo || '').trim()) bad.push({ k: c._k, cat: c, t: 'una categoria senza nome' });
+        c.voci.forEach(function (v) {
+          var n = String(v.nome || '').trim();
+          if (!n) bad.push({ k: v._k, cat: c, t: 'una voce senza nome in «' + c.titolo + '»' });
+          if (!priceOk(v.prezzo)) bad.push({ k: v._k, cat: c, t: 'il prezzo di «' + (n || 'una voce nuova') + '»' });
+        });
+      });
+      return bad;
+    }
+    function save() {
+      if (!online || busy || !dirty()) return;
+      var bad = problems();
+      if (bad.length) {
+        bad.forEach(function (b) { shown[b.k] = 1; openCats[b.cat._k] = true; });
+        $('find').value = ''; render();
+        var first = find(bad[0].k), f = first && first.querySelector('.invalid');
+        if (f) { f.focus({ preventScroll: true }); f.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+        refreshBar('Prima di salvare sistema ' + bad.slice(0, 2).map(function (b) { return b.t; }).join(' e ') + (bad.length > 2 ? ' (e altre ' + (bad.length - 2) + ')' : '') + '.', 'status-err');
+        return;
+      }
+      busy = true; refreshBar('Pubblicazione in corso…');
+      var content = serialize();
+      fetch(API, { method: 'PUT', cache: 'no-store', headers: { 'Content-Type': 'application/json', 'X-Menu-Versione': version || '' }, body: content })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { j._status = r.status; j._version = r.headers.get('X-Menu-Versione'); return j; }); })
+        .then(function (j) {
+          busy = false;
+          if (j._status === 200) {
+            version = j._version; state.aggiornato = j.aggiornato; saved = serialize(); snapshot(); shown = {}; clearDraft();
+            lastSaved = 'Salvato alle ' + new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) + ': il menu online è già aggiornato.';
+            render(); toast('Menu pubblicato: ' + j.voci + ' voci online.');
+            return;
+          }
+          refreshBar(j._status === 401 ? 'Accesso scaduto: ricarica la pagina ed entra di nuovo. Le modifiche restano su questo dispositivo.'
+            : j.errore || 'Salvataggio non riuscito (errore ' + j._status + '). Riprova tra poco.', 'status-err');
+        })
+        .catch(function () { busy = false; refreshBar('Non riesco a contattare il sito: controlla la connessione e riprova. Le modifiche restano qui.', 'status-err'); });
+    }
+    $('save').addEventListener('click', save);
+    document.addEventListener('keydown', function (e) { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); } });
     $('undo').addEventListener('click', function () {
       if (!confirm('Annullare tutte le modifiche non salvate?')) return;
-      state = JSON.parse(saved); render(); refreshBar();
+      state = JSON.parse(saved); tagAll(); shown = {}; clearDraft(); render(); toast('Modifiche annullate: il menu è tornato all\'ultima versione salvata.');
     });
     $('download').addEventListener('click', function () {
       var a = el('a', { href: URL.createObjectURL(new Blob([serialize()], { type: 'application/json' })), download: 'menu.json' });
       document.body.appendChild(a); a.click(); a.remove();
+      toast('Copia del menu scaricata (menu.json).');
     });
-
-    // ---------- collegamento ----------
-    function connMsg(t, err) { var m = $('conn-msg'); m.textContent = t; m.className = err ? 'status-err' : 'muted'; }
-    function showConn() {
-      $('conn-off').classList.toggle('hide', !!token);
-      $('conn-on').classList.toggle('hide', !token);
-      $('conn-who').textContent = token ? '· repository ' + CFG.owner + '/' + CFG.repo : '';
-    }
-    $('connect').addEventListener('click', function () {
-      var t = $('token').value.trim(); if (!t) { connMsg('Incolla prima la chiave.', true); return; }
-      var prev = token; token = t; connMsg('Verifico la chiave…');
-      gh('GET').then(function (r) {
-        if (!r.ok) throw r;
-        return r.json();
-      }).then(function (j) {
-        try { localStorage.setItem(KEY, token); } catch (e) {}
-        $('token').value = ''; connMsg(''); showConn();
-        if (!dirty()) loaded(JSON.parse(b64decode(j.content)), j.sha, 'da GitHub');
-        else { sha = j.sha; refreshBar(); }
-      }).catch(function (r) {
-        token = prev; connMsg(r && (r.status === 401 || r.status === 404) ? 'Chiave non valida o senza accesso a questo repository.' : 'Non riesco a contattare GitHub. Riprova.', true);
-      });
-    });
-    $('disconnect').addEventListener('click', function () {
-      if (!confirm('Scollegare questo dispositivo? Per salvare dovrai incollare di nuovo la chiave.')) return;
-      try { localStorage.removeItem(KEY); } catch (e) {}
-      token = ''; sha = null; showConn(); refreshBar();
-    });
-
-    showConn(); load();
   })();
   </script>
 </body>
