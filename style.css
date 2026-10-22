@@ -160,22 +160,41 @@ strong { font-weight: 700; }
 .sig h4 span { display: block; font: 700 1.05rem/1.4 var(--f-body); color: var(--red-dark); margin-top: .15rem; }
 .sig p { font-size: .92rem; color: var(--muted); margin-top: .3rem; line-height: 1.45; }
 
-.chips { display: flex; gap: .5rem; overflow-x: auto; padding: .2rem .1rem 1rem; margin-bottom: .5rem; scrollbar-width: thin; }
+/* Home: vetrina categorie */
+.cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem; }
+.cat {
+  display: flex; flex-direction: column; gap: .15rem; height: 100%; min-height: 96px; padding: .9rem 1rem;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none;
+  transition: border-color .2s, transform .15s;
+}
+.cat:hover { border-color: var(--red); }
+.cat:active { transform: scale(.98); }
+.cat__name { font: 700 1.3rem/1.1 var(--f-head); text-transform: uppercase; }
+.cat__price { font-weight: 700; color: var(--red-dark); }
+.cat__n { font-size: .85rem; color: var(--muted); }
+.menu__more { margin-top: 1.8rem; text-align: center; }
+
+/* Pagina menu */
+.menu-hero { background: var(--night); color: var(--on-night); padding-block: 2.2rem 2.4rem; }
+.menu-hero .eyebrow { color: var(--crust); }
+.menu-hero h1 { font-size: clamp(3rem, 12vw, 4.8rem); text-transform: uppercase; }
+.menu-hero__lead { margin-top: .6rem; color: var(--muted-on-night); max-width: 38rem; font-size: 1.05rem; }
+.menu-hero .menu-hero__call { display: none; margin-top: 1.4rem; max-width: 40rem; }
+.chips--bar { position: sticky; top: 64px; z-index: 10; background: var(--cream); border-bottom: 1px solid var(--line); }
+.chips__in { display: flex; gap: .5rem; overflow-x: auto; padding-block: .7rem; scrollbar-width: none; }
+.chips__in::-webkit-scrollbar { display: none; }
 .chip {
   flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: .45rem 1rem;
   border: 2px solid var(--ink); border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .95rem; white-space: nowrap;
   transition: background-color .2s, color .2s;
 }
 .chip:hover { background: var(--ink); color: var(--cream); }
-
-.menu__list { display: grid; gap: .8rem; align-items: start; }
-.menu-cat { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); scroll-margin-top: 80px; }
-.menu-cat summary { display: flex; align-items: center; gap: .7rem; min-height: 60px; padding: .8rem 1.1rem; cursor: pointer; list-style: none; }
-.menu-cat summary::-webkit-details-marker { display: none; }
-.menu-cat summary h3 { font-size: 1.55rem; text-transform: uppercase; }
+.menu-page { padding-top: 1.6rem; }
+.menu__list { display: grid; gap: 1rem; align-items: start; }
+.menu-cat { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); scroll-margin-top: 72px; }
+.menu-cat__head { display: flex; align-items: center; gap: .7rem; padding: 1rem 1.1rem .4rem; }
+.menu-cat__head h2 { font-size: 1.7rem; text-transform: uppercase; }
 .menu-cat__count { font-size: .8rem; font-weight: 700; color: var(--muted); background: var(--cream); border-radius: 999px; padding: .1rem .55rem; }
-.menu-cat__chev { margin-left: auto; transition: transform .2s; }
-.menu-cat[open] .menu-cat__chev { transform: rotate(180deg); }
 .menu-cat__note { padding: 0 1.1rem .4rem; color: var(--muted); font-size: .92rem; }
 .dishes { padding: 0 1.1rem 1rem; }
 .dish { padding: .7rem 0; border-top: 1px dashed var(--line); }
@@ -198,6 +217,8 @@ strong { font-weight: 700; }
 .steps__n { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--red); color: #fff; font: 700 1.3rem/1 var(--f-head); margin-bottom: .8rem; }
 .steps h3 { font-size: 1.45rem; text-transform: uppercase; }
 .steps p { color: var(--muted-on-night); margin-top: .35rem; }
+.steps a { color: var(--on-night); font-weight: 700; }
+.taxi__tip { margin-top: 1.2rem; color: var(--crust); font-weight: 600; }
 .taxi__info { display: grid; gap: .8rem; margin: 1.8rem 0; }
 .taxi__info div { display: flex; justify-content: space-between; gap: 1rem; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, .1); padding-bottom: .7rem; }
 .taxi__info dt { font-weight: 600; }
@@ -285,6 +306,8 @@ strong { font-weight: 700; }
 /* Tablet e desktop */
 @media (min-width: 600px) {
   .signature { grid-template-columns: repeat(4, 1fr); }
+  .cats { grid-template-columns: repeat(3, 1fr); }
+  .menu-hero .menu-hero__call { display: grid; }
   .steps, .scores { grid-template-columns: repeat(3, 1fr); }
   .callpair { grid-template-columns: 1fr 1fr; }
   .taxi__info { grid-template-columns: repeat(3, 1fr); }
